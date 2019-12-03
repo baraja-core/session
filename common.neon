@@ -1,0 +1,11 @@
+services:
+	sessionStorage: Baraja\Session\SessionStorage(
+		%database.primary.host%,
+		%database.primary.dbname%,
+		%database.primary.user%,
+		%database.primary.password%
+	)
+	session:
+		setup:
+			- setHandler(@sessionStorage)
+

@@ -1,0 +1,21 @@
+{
+	"name": "baraja-core/session",
+	"description": "Simple performance package for storage your sessions to database by native PDO.",
+	"homepage": "https://github.com/baraja-core/session",
+	"authors": [
+		{
+			"name": "Jan Barášek",
+			"homepage": "https://baraja.cz"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"ext-PDO": "*"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"minimum-stability": "stable"
+}
