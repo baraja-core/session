@@ -16,7 +16,7 @@ class SessionStorage implements \SessionHandlerInterface
 	/** @var string */
 	private $table;
 
-	/** @var string[] */
+	/** @var bool[] */
 	private $checkedIds = [];
 
 	/** @var bool */
@@ -56,6 +56,11 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
+	/**
+	 * @param string $savePath
+	 * @param string $sessionName
+	 * @return bool
+	 */
 	public function open($savePath, $sessionName): bool
 	{
 		return true;
@@ -68,6 +73,10 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
+	/**
+	 * @param string $id
+	 * @return string
+	 */
 	public function read($id): string
 	{
 		if ($this->cli) {
@@ -78,6 +87,11 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
+	/**
+	 * @param string $id
+	 * @param string $data
+	 * @return bool
+	 */
 	public function write($id, $data): bool
 	{
 		if ($this->cli) {
@@ -90,6 +104,10 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
+	/**
+	 * @param string $id
+	 * @return bool
+	 */
 	public function destroy($id): bool
 	{
 		if ($this->cli) {
@@ -103,6 +121,10 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
+	/**
+	 * @param int $maxlifetime
+	 * @return bool
+	 */
 	public function gc($maxlifetime): bool
 	{
 		if ($this->cli) {
