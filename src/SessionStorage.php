@@ -10,25 +10,18 @@ use Tracy\Debugger;
 class SessionStorage implements \SessionHandlerInterface
 {
 
-	/**
-	 * @var \PDO
-	 */
+	/** @var \PDO */
 	private $pdo;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $table;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $checkedIds = [];
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $cli;
+
 
 	/**
 	 * @param string $host
@@ -40,7 +33,7 @@ class SessionStorage implements \SessionHandlerInterface
 	public function __construct(string $host, string $dbName, string $username, ?string $password = null, ?string $table = null)
 	{
 		$this->cli = isset($_SERVER['REMOTE_ADDR']) === false;
-		$this->table = $table ? : 'core__session_storage';
+		$this->table = $table ?: 'core__session_storage';
 		$this->pdo = new \PDO('mysql:host=' . $host . ';dbname=' . $dbName . ';charset=utf8',
 			$username, $password, [
 				\PDO::ATTR_EMULATE_PREPARES => false,
@@ -53,6 +46,7 @@ class SessionStorage implements \SessionHandlerInterface
 		}
 	}
 
+
 	/**
 	 * @param string $table
 	 */
@@ -61,15 +55,18 @@ class SessionStorage implements \SessionHandlerInterface
 		$this->table = $table;
 	}
 
+
 	public function open($savePath, $sessionName): bool
 	{
 		return true;
 	}
 
+
 	public function close(): bool
 	{
 		return true;
 	}
+
 
 	public function read($id): string
 	{
@@ -79,6 +76,7 @@ class SessionStorage implements \SessionHandlerInterface
 
 		return $this->loadById($id);
 	}
+
 
 	public function write($id, $data): bool
 	{
@@ -90,6 +88,7 @@ class SessionStorage implements \SessionHandlerInterface
 
 		return true;
 	}
+
 
 	public function destroy($id): bool
 	{
@@ -103,6 +102,7 @@ class SessionStorage implements \SessionHandlerInterface
 		return true;
 	}
 
+
 	public function gc($maxlifetime): bool
 	{
 		if ($this->cli) {
@@ -114,6 +114,7 @@ class SessionStorage implements \SessionHandlerInterface
 
 		return true;
 	}
+
 
 	/**
 	 * @param string $id
@@ -157,6 +158,7 @@ class SessionStorage implements \SessionHandlerInterface
 		return $haystack;
 	}
 
+
 	/**
 	 * @param string $id
 	 * @param string $data
@@ -184,6 +186,7 @@ class SessionStorage implements \SessionHandlerInterface
 		}
 	}
 
+
 	/**
 	 * @param string $id
 	 * @param string $data
@@ -198,5 +201,4 @@ class SessionStorage implements \SessionHandlerInterface
 			. 'LIMIT 1;'
 		)->execute([':haystack' => $data]);
 	}
-
 }

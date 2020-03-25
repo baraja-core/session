@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SessionEntity
 {
-
 	use UuidIdentifier;
 
 	/**
@@ -28,5 +27,4 @@ class SessionEntity
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	private $lastUpdate;
-
 }
