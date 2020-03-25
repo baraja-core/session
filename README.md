@@ -40,15 +40,15 @@ In case of Nette framework simply use NEON configuration (defined in `common.neo
 
 ```yaml
 services:
-	sessionStorage: Baraja\Session\SessionStorage(
-		%database.primary.host%,
-		%database.primary.dbname%,
-		%database.primary.user%,
-		%database.primary.password%
-	)
-	session:
-		setup:
-			- setHandler(@sessionStorage)
+   sessionStorage: Baraja\Session\SessionStorage(
+      %database.primary.host%,
+      %database.primary.dbname%,
+      %database.primary.user%,
+      %database.primary.password%
+   )
+   session:
+      setup:
+         - setHandler(@sessionStorage)
 ```
 
 Session storage will be configured automatically.
@@ -57,10 +57,10 @@ In case of native PHP simply create new `SessionStorage` instance and create han
 
 ```php
 $handler = new \Baraja\Session\SessionStorage(
-    '127.0.0.1', // host
-    'my_application', // database name
-    'root', // user
-    '****' // password
+   '127.0.0.1', // host
+   'my_application', // database name
+   'root', // user
+   '****' // password
 );
 
 session_set_save_handler($handler);
