@@ -152,7 +152,7 @@ class SessionStorage implements \SessionHandlerInterface
 				$subHaystack = iconv_substr($haystack, 6, strlen(utf8_decode($haystack)), 'UTF-8');
 			}
 
-			$haystack = base64_decode($subHaystack);
+			$haystack = base64_decode($subHaystack, true);
 		}
 
 		return $haystack;
