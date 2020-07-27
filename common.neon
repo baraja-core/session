@@ -9,3 +9,6 @@ services:
 		setup:
 			- setHandler(@sessionStorage)
 
+orm.annotations:
+	paths:
+		Baraja\Session: %rootDir%/vendor/baraja-core/session/src
