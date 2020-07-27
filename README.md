@@ -3,13 +3,13 @@ PHP native PDO Session storage
 
 Simple performance package for storage your sessions to database by native `\PDO`.
 
-Install
--------
+📦 Installation & Basic Usage
+-----------------------------
 
 Install by Composer:
 
 ```shell
-composer require baraja-core/session
+$ composer require baraja-core/session
 ```
 
 And create database table `core__session_storage` (table name can be configured) or use Doctrine for automatic generating.
@@ -79,3 +79,8 @@ In case of custom table name you can rewrite default table name by 2 ways:
 Default table name is `core__session_storage`.
 
 Table name can be rewritten in runtime, but it's not recommended.
+
+📄 License
+-----------
+
+`baraja-core/session` is licensed under the MIT license. See the [LICENSE](https://github.com/baraja-core/session/blob/master/LICENSE) file for more details.

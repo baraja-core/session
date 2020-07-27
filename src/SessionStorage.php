@@ -23,13 +23,6 @@ class SessionStorage implements \SessionHandlerInterface
 	private $cli;
 
 
-	/**
-	 * @param string $host
-	 * @param string $dbName
-	 * @param string $username
-	 * @param string|null $password
-	 * @param string|null $table
-	 */
 	public function __construct(string $host, string $dbName, string $username, ?string $password = null, ?string $table = null)
 	{
 		$this->cli = isset($_SERVER['REMOTE_ADDR']) === false;
@@ -47,9 +40,6 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
-	/**
-	 * @param string $table
-	 */
 	public function setTable(string $table): void
 	{
 		$this->table = $table;
@@ -138,11 +128,6 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
-	/**
-	 * @param string $id
-	 * @param int $attempts
-	 * @return string
-	 */
 	private function loadById(string $id, int $attempts = 1): string
 	{
 		if ($attempts >= 5) {
@@ -151,7 +136,6 @@ class SessionStorage implements \SessionHandlerInterface
 
 		$this->checkedIds[$id] = true;
 		$data = $this->pdo->query('SELECT * FROM `' . $this->table . '` WHERE `id` = \'' . $id . '\' LIMIT 1')->fetch();
-
 		if ($data === false) {
 			try {
 				$this->pdo->exec(
@@ -166,14 +150,12 @@ class SessionStorage implements \SessionHandlerInterface
 		}
 
 		$haystack = $data['haystack'];
-
 		if (strncmp($haystack, '_BASE:', 6) === 0) {
 			if (function_exists('mb_substr')) {
 				$subHaystack = mb_substr($haystack, 6, null, 'UTF-8'); // MB is much faster
 			} else {
 				$subHaystack = iconv_substr($haystack, 6, strlen(utf8_decode($haystack)), 'UTF-8');
 			}
-
 			$haystack = base64_decode($subHaystack, true);
 		}
 
@@ -181,10 +163,6 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
-	/**
-	 * @param string $id
-	 * @param string $data
-	 */
 	private function updateById(string $id, string $data): void
 	{
 		if (isset($this->checkedIds[$id]) === false) {
@@ -209,10 +187,6 @@ class SessionStorage implements \SessionHandlerInterface
 	}
 
 
-	/**
-	 * @param string $id
-	 * @param string $data
-	 */
 	private function saveHaystack(string $id, string $data): void
 	{
 		$this->pdo->prepare(
