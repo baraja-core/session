@@ -9,24 +9,19 @@ use Tracy\Debugger;
 
 class SessionStorage implements \SessionHandlerInterface
 {
+	private \PDO $pdo;
 
-	/** @var \PDO */
-	private $pdo;
+	private string $table;
 
-	/** @var string */
-	private $table;
+	private array $checkedIds = [];
 
-	/** @var bool[] */
-	private $checkedIds = [];
-
-	/** @var bool */
-	private $cli;
+	private bool $cli;
 
 
 	public function __construct(string $host, string $dbName, string $username, ?string $password = null, ?string $table = null)
 	{
 		$this->cli = isset($_SERVER['REMOTE_ADDR']) === false;
-		$this->table = $table ?: 'core__session_storage';
+		$this->table = $table ?? 'core__session_storage';
 		$this->pdo = new \PDO('mysql:host=' . $host . ';dbname=' . $dbName . ';charset=utf8',
 			$username, $password, [
 				\PDO::ATTR_EMULATE_PREPARES => false,

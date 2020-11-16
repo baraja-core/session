@@ -16,15 +16,9 @@ class SessionEntity
 {
 	use UuidIdentifier;
 
-	/**
-	 * @var string
-	 * @ORM\Column(type="text")
-	 */
-	private $haystack;
+	/** @ORM\Column(type="text") */
+	private string $haystack;
 
-	/**
-	 * @var \DateTime|null
-	 * @ORM\Column(type="datetime", nullable=true)
-	 */
-	private $lastUpdate;
+	/** @ORM\Column(type="datetime", nullable=true) */
+	private ?\DateTime $lastUpdate;
 }
