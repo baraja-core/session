@@ -13,6 +13,7 @@ class SessionStorage implements \SessionHandlerInterface
 
 	private string $table;
 
+	/** @var bool[] */
 	private array $checkedIds = [];
 
 	private bool $cli;
