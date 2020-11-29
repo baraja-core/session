@@ -22,9 +22,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `core__session_storage`;
 CREATE TABLE `core__session_storage` (
-  `id` char(36) COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:uuid)',
+  `id` varchar(26) COLLATE utf8_unicode_ci NOT NULL,
   `haystack` longtext COLLATE utf8_unicode_ci NOT NULL,
   `last_update` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

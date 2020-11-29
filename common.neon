@@ -1,14 +1,2 @@
-services:
-	sessionStorage: Baraja\Session\SessionStorage(
-		%database.primary.host%,
-		%database.primary.dbname%,
-		%database.primary.user%,
-		%database.primary.password%
-	)
-	session:
-		setup:
-			- setHandler(@sessionStorage)
-
-orm.annotations:
-	paths:
-		Baraja\Session: %rootDir%/vendor/baraja-core/session/src
+extensions:
+	barajaPdoSession: Baraja\Session\SessionExtension
