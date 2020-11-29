@@ -38,16 +38,8 @@ How to use
 In case of Nette framework simply use NEON configuration (defined in `common.neon` file):
 
 ```yaml
-services:
-   sessionStorage: Baraja\Session\SessionStorage(
-      %database.primary.host%,
-      %database.primary.dbname%,
-      %database.primary.user%,
-      %database.primary.password%
-   )
-   session:
-      setup:
-         - setHandler(@sessionStorage)
+extensions:
+   barajaPdoSession: Baraja\Session\SessionExtension
 ```
 
 Session storage will be configured automatically.
@@ -72,7 +64,7 @@ Define custom table name
 
 In case of custom table name you can rewrite default table name by 2 ways:
 
-- Constructor 5. parameter
+- Constructor `$table` argument
 - Setter `setTable()`
 
 Default table name is `core__session_storage`.
