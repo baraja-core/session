@@ -139,15 +139,12 @@ class SessionStorage implements \SessionHandlerInterface
 
 			return '';
 		}
-
-		$haystack = $data['haystack'];
-		if (strncmp($haystack, '_BASE:', 6) === 0) {
+		if (strncmp($haystack = $data['haystack'], '_BASE:', 6) === 0) {
 			if (function_exists('mb_substr')) {
-				$subHaystack = mb_substr($haystack, 6, null, 'UTF-8'); // MB is much faster
+				$haystack = base64_decode(mb_substr($haystack, 6, null, 'UTF-8'), true);
 			} else {
-				$subHaystack = iconv_substr($haystack, 6, strlen(utf8_decode($haystack)), 'UTF-8');
+				throw new \RuntimeException('Function "mb_substr" is not available. Please install "mb" extension.');
 			}
-			$haystack = base64_decode($subHaystack, true);
 		}
 
 		return $haystack;
