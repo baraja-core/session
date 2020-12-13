@@ -126,8 +126,11 @@ class SessionStorage implements \SessionHandlerInterface
 		}
 
 		$this->checkedIds[$id] = true;
-		$data = $this->pdo->query('SELECT * FROM `' . $this->table . '` WHERE `id` = \'' . $id . '\' LIMIT 1')->fetch();
-		if ($data === false) {
+		$query = 'SELECT * FROM `' . $this->table . '` WHERE `id` = \'' . $id . '\' LIMIT 1';
+		if (($processedQuery = $this->pdo->query($query)) === false) {
+			throw new \RuntimeException('Can not process query. Please try run this SQL manually.' . "\n\n" . 'SQL given: ' . $query);
+		}
+		if (($data = $processedQuery->fetch()) === false) {
 			try {
 				$this->pdo->exec(
 					'INSERT INTO `' . $this->table . '` (`id`, `haystack`, `last_update`) '
