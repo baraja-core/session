@@ -42,13 +42,13 @@ final class SessionExtension extends CompilerExtension
 
 	public function beforeCompile(): void
 	{
+		$builder = $this->getContainerBuilder();
 		if (\class_exists(OrmAnnotationsExtension::class)) {
-			OrmAnnotationsExtension::addAnnotationPath('Baraja\Session', __DIR__ . '/Entity');
+			OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\Session', __DIR__ . '/Entity');
 		}
 
 		/** @var mixed[] $config */
 		$config = $this->getConfig();
-		$builder = $this->getContainerBuilder();
 
 		$connection = [
 			'host' => $config['host'],
