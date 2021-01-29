@@ -39,7 +39,7 @@ class SessionStorage implements \SessionHandlerInterface
 		);
 
 		if (mt_rand() / mt_getrandmax() < 0.001) {
-			$this->gc(1209600);
+			$this->gc(1_209_600);
 		}
 	}
 
@@ -142,7 +142,7 @@ class SessionStorage implements \SessionHandlerInterface
 			try {
 				$this->pdo->exec(
 					'INSERT INTO `' . $this->table . '` (`id`, `haystack`, `last_update`) '
-					. 'VALUES (\'' . $id . '\', \'\', \'' . date('Y-m-d H:i:s') . '\');'
+					. 'VALUES (\'' . $id . '\', \'\', \'' . date('Y-m-d H:i:s') . '\');',
 				);
 			} catch (\PDOException $e) {
 				$this->destroy($id);
