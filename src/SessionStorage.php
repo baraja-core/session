@@ -19,15 +19,23 @@ class SessionStorage implements \SessionHandlerInterface
 	private bool $cli;
 
 
-	public function __construct(string $host, string $dbName, string $username, ?string $password = null, ?string $table = null)
-	{
+	public function __construct(
+		string $host,
+		string $dbName,
+		string $username,
+		?string $password = null,
+		?string $table = null
+	) {
 		$this->cli = isset($_SERVER['REMOTE_ADDR']) === false;
 		$this->table = $table ?? 'core__session_storage';
-		$this->pdo = new \PDO('mysql:host=' . $host . ';dbname=' . $dbName . ';charset=utf8',
-			$username, $password, [
+		$this->pdo = new \PDO(
+			'mysql:host=' . $host . ';dbname=' . $dbName . ';charset=utf8',
+			$username,
+			$password,
+			[
 				\PDO::ATTR_EMULATE_PREPARES => false,
 				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-			]
+			],
 		);
 
 		if (mt_rand() / mt_getrandmax() < 0.001) {
@@ -134,7 +142,8 @@ class SessionStorage implements \SessionHandlerInterface
 			try {
 				$this->pdo->exec(
 					'INSERT INTO `' . $this->table . '` (`id`, `haystack`, `last_update`) '
-					. 'VALUES (\'' . $id . '\', \'\', \'' . date('Y-m-d H:i:s') . '\');');
+					. 'VALUES (\'' . $id . '\', \'\', \'' . date('Y-m-d H:i:s') . '\');'
+				);
 			} catch (\PDOException $e) {
 				$this->destroy($id);
 				$this->loadById($id, $attempts + 1);
@@ -185,7 +194,7 @@ class SessionStorage implements \SessionHandlerInterface
 			. 'SET `haystack` = :haystack, '
 			. '`last_update` = \'' . date('Y-m-d H:i:s') . '\''
 			. 'WHERE `id` = \'' . $id . '\' '
-			. 'LIMIT 1;'
+			. 'LIMIT 1;',
 		)->execute([':haystack' => $data]);
 	}
 }
