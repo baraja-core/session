@@ -16,7 +16,7 @@
 		"phpstan/phpstan": "^0.12.74",
 		"tracy/tracy": "^2.8",
 		"phpstan/phpstan-nette": "^0.12.14",
-		"baraja-core/doctrine": "^2.0",
+		"baraja-core/doctrine": "^3.0",
 		"spaze/phpstan-disallowed-calls": "^1.1",
 		"roave/security-advisories": "dev-master"
 	},
