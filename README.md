@@ -6,11 +6,20 @@ Simple performance package for storage your sessions to database by native `\PDO
 📦 Installation & Basic Usage
 -----------------------------
 
-Install by Composer:
+It's best to use [Composer](https://getcomposer.org) for installation, and you can also find the package on
+[Packagist](https://packagist.org/packages/baraja-core/session) and
+[GitHub](https://github.com/baraja-core/session).
 
-```shell
+To install, simply use the command:
+
+```
 $ composer require baraja-core/session
 ```
+
+You can use the package manually by creating an instance of the internal classes, or register a DIC extension to link the services directly to the Nette Framework.
+
+Install database structure
+--------------------------
 
 And create database table `core__session_storage` (table name can be configured) or use Doctrine for automatic generating.
 
