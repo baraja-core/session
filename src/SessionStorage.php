@@ -24,7 +24,7 @@ class SessionStorage implements \SessionHandlerInterface
 		string $dbName,
 		string $username,
 		?string $password = null,
-		?string $table = null
+		?string $table = null,
 	) {
 		$this->cli = isset($_SERVER['REMOTE_ADDR']) === false;
 		$this->table = $table ?? 'core__session_storage';
