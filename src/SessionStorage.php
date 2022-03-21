@@ -135,23 +135,26 @@ class SessionStorage implements \SessionHandlerInterface
 
 		$this->checkedIds[$id] = true;
 		$query = 'SELECT * FROM `' . $this->table . '` WHERE `id` = \'' . $id . '\' LIMIT 1';
-		if (($processedQuery = $this->pdo->query($query)) === false) {
+		$processedQuery = $this->pdo->query($query);
+		if ($processedQuery === false) {
 			throw new \RuntimeException('Can not process query. Please try run this SQL manually.' . "\n\n" . 'SQL given: ' . $query);
 		}
-		if (($data = $processedQuery->fetch()) === false) {
+		$data = $processedQuery->fetch();
+		if ($data === false) {
 			try {
 				$this->pdo->exec(
 					'INSERT INTO `' . $this->table . '` (`id`, `haystack`, `last_update`) '
 					. 'VALUES (\'' . $id . '\', \'\', \'' . date('Y-m-d H:i:s') . '\');',
 				);
-			} catch (\PDOException $e) {
+			} catch (\PDOException) {
 				$this->destroy($id);
 				$this->loadById($id, $attempts + 1);
 			}
 
 			return '';
 		}
-		if (strncmp($haystack = $data['haystack'], '_BASE:', 6) === 0) {
+		$haystack = $data['haystack'];
+		if (str_starts_with($haystack, '_BASE:')) {
 			if (function_exists('mb_substr')) {
 				$haystack = base64_decode(mb_substr($haystack, 6, null, 'UTF-8'), true);
 			} else {
@@ -172,7 +175,7 @@ class SessionStorage implements \SessionHandlerInterface
 		try {
 			$this->saveHaystack($id, $data);
 		} catch (\PDOException $e) {
-			if (preg_match('/Incorrect string value: .+? for column .haystack. at row 1$/', $e->getMessage())) {
+			if (preg_match('/Incorrect string value: .+? for column .haystack. at row 1$/', $e->getMessage()) === 1) {
 				$this->saveHaystack($id, '_BASE:' . base64_encode($data));
 			} else {
 				echo '<h1>Internal server error.</h1>' . "\n";
