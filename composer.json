@@ -13,6 +13,7 @@
 		"ext-PDO": "*"
 	},
 	"require-dev": {
+		"nette/di": "^2.4",
 		"tracy/tracy": "^2.8",
 		"phpstan/phpstan": "^1.0",
 		"phpstan/extension-installer": "^1.1",

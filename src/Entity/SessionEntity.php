@@ -7,23 +7,19 @@ namespace Baraja\Session;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="core__session_storage")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'core__session_storage')]
 class SessionEntity
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="string", unique=true, length=26)
-	 */
+	#[ORM\Id]
+	#[ORM\Column(type: 'string', length: 26, unique: true)]
 	private string $id;
 
-	/** @ORM\Column(type="text") */
-	private string $haystack;
+	#[ORM\Column(type: 'text')]
+	protected string $haystack;
 
-	/** @ORM\Column(type="datetime", nullable=true) */
-	private ?\DateTime $lastUpdate = null;
+	#[ORM\Column(type: 'datetime_immutable', nullable: true)]
+	private ?\DateTimeImmutable $lastUpdate = null;
 
 
 	public function __construct(string $id)
@@ -44,7 +40,7 @@ class SessionEntity
 	}
 
 
-	public function getLastUpdate(): ?\DateTime
+	public function getLastUpdate(): ?\DateTimeImmutable
 	{
 		return $this->lastUpdate;
 	}

@@ -114,16 +114,16 @@ class SessionStorage implements \SessionHandlerInterface
 	/**
 	 * @param int $maxlifetime
 	 */
-	public function gc($maxlifetime): bool
+	public function gc($maxlifetime): int|false
 	{
 		if ($this->cli) {
-			return false;
+			return 0;
 		}
 
 		$this->pdo->prepare('DELETE FROM `' . $this->table . '` WHERE `last_update` < :dateTime LIMIT 500')
-			->execute([':dateTime' => date('Y-m-d H:i:s', (int) strtotime('now - 14 days'))]);
+			->execute([':dateTime' => date('Y-m-d H:i:s', strtotime('now - 14 days'))]);
 
-		return true;
+		return 1;
 	}
 
 
