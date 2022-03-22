@@ -13,7 +13,7 @@ class SessionEntity
 {
 	#[ORM\Id]
 	#[ORM\Column(type: 'string', length: 26, unique: true)]
-	private string $id;
+	protected string $id;
 
 	#[ORM\Column(type: 'text')]
 	protected string $haystack;
